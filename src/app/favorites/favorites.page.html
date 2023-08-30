@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      UEFA Squad List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h1 class="ion-margin-start">Favorite Teams</h1>
+  <div *ngIf="favoriteList;else refresh">
+    <ion-item *ngFor="let team of favoriteList">
+      <ion-thumbnail slot="start">
+        <img src="{{ team.strTeamBadge }}" alt="{{ team.strTeamBadge }}" loading="lazy">
+      </ion-thumbnail>
+      <ion-label>{{ team.strTeam }}</ion-label>
+      <ion-button color="primary" (click)="detailTeam(team.idTeam)">
+        <ion-icon name="arrow-redo-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="danger" (click)="removeFav(team.idTeam)">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+  <ng-template #refresh>
+    <div id="refresh">
+      <ion-button (click)="reload()">
+        Reload
+      </ion-button>
+    </div>
+  </ng-template>
+</ion-content>

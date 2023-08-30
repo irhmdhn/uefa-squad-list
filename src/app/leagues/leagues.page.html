@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      UEFA Squad List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-margin-start">
+    <h1>UEFA Leagues</h1>
+    <ion-item>
+      <ion-select [(ngModel)]="selectedLeague" (ionChange)="onLeagueChange()" [value]="defaultLeague">
+        <ion-select-option *ngFor="let league of leagues" [value]="league.strLeague">
+          {{ league.strLeague }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <p>Result: {{ teamsLength }} teams</p>
+  </div>
+  <ion-grid *ngIf="teams;else empty">
+    <ion-row>
+      <ion-col size="6" size-md="3" *ngFor="let team of teams" (click)="detailTeamNav(team.strLeague, team.idTeam)">
+        <ion-card class=" team ion-padding-top ion-text-center ion-no-margin">
+          <img alt="{{ team.strTeam }}" src="{{team.strTeamBadge}}" width="50%" loading="lazy" />
+          <ion-card-header class="ion-text-start">
+            <h4>{{ team.strTeam }}</h4>
+            <small>{{ team.strLeague }}</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ng-template #empty>
+    <div id="empty">
+      <h4>Team tidak ditemukan</h4>
+    </div>
+  </ng-template>
+</ion-content>
